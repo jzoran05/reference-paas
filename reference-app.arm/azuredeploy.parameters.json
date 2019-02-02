@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "reference-paas-web-aat"
+    },
+    "hostingPlanName": {
+      "value": "reference-paas-asp-aat"
+    },
+    "hostingEnvironment": {
+      "value": ""
+    },
+    "location": {
+      "value": "West Europe"
+    },
+    "sku": {
+      "value": "Standard"
+    },
+    "skuCode": {
+      "value": "S1"
+    },
+    "workerSize": {
+      "value": "0"
+    },
+    "serverFarmResourceGroup": {
+      "value": "reference-paas.aat"
+    },
+    "subscriptionId": {
+      "value": "3aba1271-ca5f-49e8-9229-2214ec0ac30c"
+    }
+  }
+}
