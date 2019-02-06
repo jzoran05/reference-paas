@@ -1,35 +1,41 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-      "name": {
-        "type": "String"
-      },
-        "hostingPlanName": {
-            "type": "String"
-        },
-        "hostingEnvironment": {
-            "type": "String"
-        },
-        "location": {
-            "type": "String"
-        },
-        "sku": {
-            "type": "String"
-        },
-        "skuCode": {
-            "type": "String"
-        },
-        "workerSize": {
-            "type": "String"
-        },
-        "serverFarmResourceGroup": {
-            "type": "String"
-        },
-        "subscriptionId": {
-            "type": "String"
-        }
+  "parameters": {
+    "name": {
+      "type": "String"
     },
+    "hostingPlanName": {
+      "type": "String"
+    },
+    "hostingEnvironment": {
+      "type": "String"
+    },
+    "location": {
+      "type": "String"
+    },
+    "sku": {
+      "type": "String"
+    },
+    "skuCode": {
+      "type": "String"
+    },
+    "workerSize": {
+      "type": "String"
+    },
+    "serverFarmResourceGroup": {
+      "type": "String"
+    },
+    "subscriptionId": {
+      "type": "String"
+    },
+    "envrionmentSuffix": {
+      "type": "String"
+    }
+  },
+  "variables": {
+    "appInsightResourceName": "[concat('microsoft.insights/components/reference-paas-web', parameters('envrionmentSuffix'))]"
+  },
     "resources": [
         {
             "type": "Microsoft.Web/sites",
@@ -41,7 +47,7 @@
                     "appSettings": [
                         {
                             "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                            "value": "[reference('microsoft.insights/components/reference-paas-web-aat', '2015-05-01').InstrumentationKey]"
+                            "value": "[reference(variables('appInsightResourceName'), '2015-05-01').InstrumentationKey]"
                         },
                         {
                             "name": "XDT_MicrosoftApplicationInsights_Mode",
@@ -59,7 +65,7 @@
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-                "microsoft.insights/components/reference-paas-web-aat"
+                "[variables('appInsightResourceName')"
             ]
         },
         {
@@ -78,15 +84,15 @@
                 "hostingEnvironment": "[parameters('hostingEnvironment')]"
             }
         },
-        {
-            "type": "microsoft.insights/components",
-            "name": "reference-paas-web-aat",
-            "apiVersion": "2015-05-01",
-            "location": "West Europe",
-            "properties": {
-                "ApplicationId": "[parameters('name')]",
-                "Request_Source": "IbizaWebAppExtensionCreate"
-            }
+      {
+        "type": "microsoft.insights/components",
+        "name": "[concat('reference-paas-web', parameters('envrionmentSuffix'))]",
+        "apiVersion": "2015-05-01",
+        "location": "West Europe",
+        "properties": {
+          "ApplicationId": "[parameters('name')]",
+          "Request_Source": "IbizaWebAppExtensionCreate"
         }
+      }
     ]
 }

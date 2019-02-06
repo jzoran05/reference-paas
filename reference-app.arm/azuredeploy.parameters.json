@@ -28,6 +28,12 @@
     },
     "subscriptionId": {
       "value": "3aba1271-ca5f-49e8-9229-2214ec0ac30c"
+    },
+    "environmentSuffix": {
+      "value": "-aat"
+    },
+    "envrionmentSuffix": {
+      "value": "-aat"
     }
   }
 }
