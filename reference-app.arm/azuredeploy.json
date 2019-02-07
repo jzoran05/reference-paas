@@ -29,12 +29,12 @@
     "subscriptionId": {
       "type": "String"
     },
-    "envrionmentSuffix": {
+    "environmentSuffix": {
       "type": "String"
     }
   },
   "variables": {
-    "appInsightResourceName": "[concat('microsoft.insights/components/reference-paas-web', parameters('envrionmentSuffix'))]"
+    "appInsightResourceName": "[concat('microsoft.insights/components/reference-paas-web', parameters('environmentSuffix'))]"
   },
     "resources": [
         {
@@ -65,7 +65,7 @@
             },
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-                "[variables('appInsightResourceName')"
+                "[variables('appInsightResourceName')]"
             ]
         },
         {
@@ -86,7 +86,7 @@
         },
       {
         "type": "microsoft.insights/components",
-        "name": "[concat('reference-paas-web', parameters('envrionmentSuffix'))]",
+        "name": "[concat('reference-paas-web', parameters('environmentSuffix'))]",
         "apiVersion": "2015-05-01",
         "location": "West Europe",
         "properties": {
